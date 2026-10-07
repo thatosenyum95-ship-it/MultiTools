@@ -169,6 +169,7 @@ private fun HomeHeader() {
                             modifier = Modifier.size(27.dp)
                         )
                     }
+                }
                 Spacer(Modifier.width(14.dp))
                 Column {
                     Text(
