@@ -26,6 +26,15 @@ jobs:
       - name: Build debug APK
         run: gradle :app:assembleDebug
 
+      - name: Verify official MultiTools APK fingerprint
+        run: |
+          set -euo pipefail
+          APK=app/build/outputs/apk/debug/app-debug.apk
+          test -f "$APK"
+          test "$(stat -c%s "$APK")" -eq 16403746
+          echo "c1b04b3dfb508bd69d5dbf2e38e89396beabb14962ca3f7e5ad364d456511677  $APK" | sha256sum -c -
+          file "$APK" | grep -Ei 'Android|Zip archive|Java archive'
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
